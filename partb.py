@@ -11,16 +11,38 @@ def naiveApproach(messyStuff):
 
 def scanEntireArray(array):
 
+    return
+
+# p1 and p2 are pairs of points or many pairs of points
+#return the min of the two
+def min_point(p1,p2):
+    if(p1==None):
+        return p2
+    elif(p2==None):
+        return p1
+    elif(helperfoos.dist_between_points(p1[0][0],p1[0][1])<
+        helperfoos.dist_between_points(p2[0][0],p2[0][1])):
+        return p1
+    elif(helperfoos.dist_between_points(p1[0][0],p1[0][1])==
+        helperfoos.dist_between_points(p2[0][0],p2[0][1])):
+        for item in p2:
+            p1.append(item)
+        return p1
+    else:
+        return p2
+
+
+
 
 def split(Array):
     if(len(Array)==1):
-        return None
+        return (None)
     elif(len(Array)==2):
-        return array
+        return Array
     else:
+        closest1 = min_point(split(Array[:len(Array)/2]),split(Array[len(Array/2)+1:]))
         Array.sort(key=lambda x: x[1]) #sort by the second element
         closest0 = scanEntireArray(array)
-        closest1 = min(split(array,mid/2),split(array+mid/2,mid/2))
 
         return closest0 if(closest0<closest1) else closest1
 

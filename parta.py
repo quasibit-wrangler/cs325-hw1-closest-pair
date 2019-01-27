@@ -21,7 +21,7 @@ def bruteForce(messyStuff):
 def main():
     points = helperfoos.grabArray()
     results = bruteForce(points)
-    print(results)
+    helperfoos.printResults(results,helperfoos.dist_between_points(results[0][0],results[0][1]))
 
 
 

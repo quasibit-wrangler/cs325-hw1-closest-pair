@@ -19,3 +19,14 @@ def dist_between_points(p1,p2):
     x=p2[0]-p1[0]
     y=p2[1]-p1[1]
     return math.sqrt(x**2 + y**2)
+
+
+def printResults(array,distance):
+    print(distance)
+    array.sort(key=lambda x: x[0][1])
+    array.sort(key=lambda x: x[0][0])
+
+    for item in array:
+        item.sort(key=lambda x: x[1])
+        print("{x1} {y2} {x2} {y2}".format(x1= item[0][0], y1=item[0][1], x2=item[1][0], y2=item[1][1]))
+    return
