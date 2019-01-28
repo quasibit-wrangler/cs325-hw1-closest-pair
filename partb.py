@@ -4,14 +4,12 @@ def naiveApproach(messyStuff):
     #sort by x for the first time
     messyStuff.sort(key=lambda point: point[0])
     sortByX = messyStuff
-    print("array sorted by x:\n", sortByX)
     results = split(sortByX)
 
     return results
 
 def scanEntireArray(array):
-    print("Y-sorted Array: \n", array)
-    return
+    return None
 
 # p1 and p2 are pairs of points or many pairs of points
 #return the min of the two
@@ -49,18 +47,20 @@ def min_distance(p1, p2):
 
 
 def split(Array):
+    print(Array)
     if(len(Array)==1):
         return (None)
     elif(len(Array)==2):
+        print("len 2 base case", Array)
         return Array
     else:
         midPoint = len(Array)/2
-        closest1 = min_distance(split(Array[:midPoint]),split(Array[midPoint+1:]))
+        closest1 = min_distance(split(Array[:midPoint]),split(Array[midPoint:]))
         Array.sort(key=lambda point: point[1]) #sort by the second element
         print ("closest1: ", closest1)
         closest0 = scanEntireArray(Array)
 
-        return closest0 if(closest0<closest1) else closest1
+        return closest1
 
 
 
@@ -68,6 +68,7 @@ def split(Array):
 def main():
     points = helperfoos.grabArray()
     results=naiveApproach(points)
+    print("Final Result", results)
     #helperfoos.printResults(results,helperfoos.dist_between_points(results[0][0],results[0][1]))
 
 
