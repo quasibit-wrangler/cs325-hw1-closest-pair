@@ -25,8 +25,7 @@ def printResults(array,distance):
     print(distance)
     array.sort(key=lambda x: x[0][1])
     array.sort(key=lambda x: x[0][0])
-
     for item in array:
         item.sort(key=lambda x: x[1])
-        print("{x1} {y2} {x2} {y2}".format(x1= item[0][0], y1=item[0][1], x2=item[1][0], y2=item[1][1]))
+        print("{x1} {y1} {x2} {y2}".format(x1= item[0][0], y1=item[0][1], x2=item[1][0], y2=item[1][1]))
     return
