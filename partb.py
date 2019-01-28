@@ -13,13 +13,12 @@ def findDelta(currentArray,currentBestDistance):
     medianX = currentArray[len(currentArray)/2][0]
     subArray=[]
     for i in range(len(currentArray)):
-        if(abs(currentArray[i][0]-medianX)<currentBestDistance):
+        if(abs(currentArray[i][0]-medianX)<=currentBestDistance):
             subArray.append(currentArray[i])
-    print("Sub array: ", subArray)
     return subArray
 
 def scanEntireArray(array,currentBest):
-    currentLength=helperfoos.dist_between_points(currentBest[0],currentBest[1])
+    currentLength=helperfoos.dist_between_points(currentBest[0][0],currentBest[0][1])
     subArray = findDelta(array,currentLength)
     subArray.sort(key=lambda point: point[1]) #sort by the second element
 
@@ -31,42 +30,28 @@ def scanEntireArray(array,currentBest):
                 #there is no way this index1 has a closest pair
                 break
             else:
-                p2=[subArray[index],subArray[index2]]
+                p2=[(subArray[index],subArray[index2])]
                 currentBest = min_distance(currentBest,p2)
         pass
     return currentBest
 
 # p1 and p2 are pairs of points or many pairs of points
 #return the min of the two
-def min_point(p1,p2):
-    if(p1==None):
-        return p2
-    elif(p2==None):
-        return p1
-    elif(helperfoos.dist_between_points(p1[0][0],p1[0][1])<
-        helperfoos.dist_between_points(p2[0][0],p2[0][1])):
-        return p1
-    elif(helperfoos.dist_between_points(p1[0][0],p1[0][1])==
-        helperfoos.dist_between_points(p2[0][0],p2[0][1])):
-        for item in p2:
-            p1.append(item)
-        return p1
-    else:
-        return p2
-
 def min_distance(p1, p2):
     if(p1==None):
         return p2
     elif(p2==None):
         return p1
-    minDistance1 = helperfoos.dist_between_points(p1[0], p1[1])
-    minDistance2 = helperfoos.dist_between_points(p2[0], p2[1])
+    print(p1,"comparing with",p2)
+    minDistance1 = helperfoos.dist_between_points(p1[0][0], p1[0][1])
+    minDistance2 = helperfoos.dist_between_points(p2[0][0], p2[0][1])
     if(minDistance1<minDistance2):
         print("choosing",p1)
         return p1
     elif(minDistance1==minDistance2):
         for item in p2:
             p1.append(item)
+        print("equal", p1)
         return p1
     else:
         print("choosing", p2)
@@ -78,8 +63,7 @@ def split(Array):
     if(len(Array)==1):
         return (None)
     elif(len(Array)==2):
-        print("len 2 base case", Array)
-        return Array
+        return [(Array[0], Array[1])]
     else:
         midPoint = len(Array)/2
         closest1 = min_distance(split(Array[:midPoint]),split(Array[midPoint:]))
