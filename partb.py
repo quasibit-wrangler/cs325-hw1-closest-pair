@@ -57,6 +57,12 @@ def min_distance(p1, p2):
         print("choosing", p2)
         return p2
 
+def clean_duplicates(pairArray):
+    for pair1 in pairArray:
+        for j, pair2 in enumerate(pairArray):
+            if pair1[0][0] == pair2[0][0] and pair1[0][1] == pair2[0][1] and pair1[1][0] == pair2[1][0] and pair1[1][1] == pair2[1][1]:
+                   del pairArray[j]
+                   break
 
 def split(Array):
     print(Array)
@@ -68,7 +74,7 @@ def split(Array):
         midPoint = len(Array)/2
         closest1 = min_distance(split(Array[:midPoint]),split(Array[midPoint:]))
         closest0 = scanEntireArray(Array,closest1)
-        return closest1
+        return closest0
 
 
 
@@ -76,6 +82,7 @@ def split(Array):
 def main():
     points = helperfoos.grabArray()
     results=naiveApproach(points)
+    clean_duplicates(results)
     print("Final Result", results)
     #helperfoos.printResults(results,helperfoos.dist_between_points(results[0][0],results[0][1]))
 
