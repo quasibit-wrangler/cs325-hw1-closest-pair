@@ -8,17 +8,30 @@ def naiveApproach(messyStuff):
 
     return results
 
+def findDelta(currentArray,currentBestDistance):
+    # if(len(currentArray)%2==0):
+    medianX = currentArray[len(currentArray)/2][0]
+    subArray=[]
+    for i in range(len(currentArray)):
+        if(abs(currentArray[i][0]-medianX)<currentBestDistance):
+            subArray.append(currentArray[i])
+    print("Sub array: ", subArray)
+    return subArray
+
 def scanEntireArray(array,currentBest):
     currentLength=helperfoos.dist_between_points(currentBest[0],currentBest[1])
+    subArray = findDelta(array,currentLength)
+    subArray.sort(key=lambda point: point[1]) #sort by the second element
+
     #brute force the check but discard y values that are crappy.
-    for index in range(start,len(array)):
-        for index2 in range(start+1,len(array)):
-            length_y=array[index2][1]-array[index][1]
+    for index in range(0,len(subArray)):
+        for index2 in range(index+1,len(subArray)):
+            length_y=subArray[index2][1]-subArray[index][1]
             if(length_y>currentLength):
                 #there is no way this index1 has a closest pair
                 break
             else:
-                p2=[array[index],array[index2]]
+                p2=[subArray[index],subArray[index2]]
                 currentBest = min_distance(currentBest,p2)
         pass
     return currentBest
@@ -70,9 +83,7 @@ def split(Array):
     else:
         midPoint = len(Array)/2
         closest1 = min_distance(split(Array[:midPoint]),split(Array[midPoint:]))
-        Array.sort(key=lambda point: point[1]) #sort by the second element
         closest0 = scanEntireArray(Array,closest1)
-
         return closest1
 
 
