@@ -1,13 +1,13 @@
 import helperLibrary as helperfoos
 
 def naiveApproach(messyStuff):
-    pair = []
     #sort by x for the first time
     messyStuff.sort(key=lambda x: x[0])
     sortByX = messyStuff
     print(sortByX)
+    results = split(sortByX)
 
-    return pair
+    return results
 
 def scanEntireArray(array):
 
@@ -51,8 +51,8 @@ def split(Array):
 
 def main():
     points = helperfoos.grabArray()
-
-    closest_pair=naiveApproach(points)
+    results=naiveApproach(points)
+    helperfoos.printResults(results,helperfoos.dist_between_points(results[0][0],results[0][1]))
 
 
 
