@@ -20,6 +20,22 @@ def dist_between_points(p1,p2):
     y=p2[1]-p1[1]
     return math.sqrt(x**2 + y**2)
 
+def clean_duplicates(array):
+    for i,pair1 in enumerate(array):
+        for j in range(i+1,len(array)):
+            if(  pair1[0][0] == array[j][0][0] and
+                 pair1[0][1] == array[j][0][1] and
+                 pair1[1][0] == array[j][1][0] and
+                 pair1[1][1] == array[j][1][1] ):
+                 del array[i]
+                 array = clean_duplicates(array)
+                 return array
+
+
+
+
+    return array
+
 
 def printResults(array,distance):
     print(distance)
