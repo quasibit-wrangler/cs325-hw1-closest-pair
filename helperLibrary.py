@@ -24,8 +24,6 @@ def min_distance(pair_set1, pair_set2):
 
 
 def grabArray():
-    with open(sys.argv[1]) as f:
-        content = f.readlines()
 
     numList = []
     # tuples = content.split('\n')
@@ -35,9 +33,14 @@ def grabArray():
         numList[len(numList)-1][0]=int(numList[len(numList)-1][0])
         numList[len(numList)-1][1]=int(numList[len(numList)-1][1])
     return numList
-def grabArray(filename):
-    with open(filename) as f:
-        content = f.readlines()
+
+def grabArray(filename=None):
+    if(filename == None):
+        with open(sys.argv[1]) as f:
+            content = f.readlines()
+    else:
+        with open(filename) as f:
+            content = f.readlines()
 
     numList = []
     # tuples = content.split('\n')
@@ -80,14 +83,38 @@ def printResults(array,distance):
 
 
 # creates data file with specified parameters
+def uniquifyList(seq, idfun=None):
+   # order preserving
+   if idfun is None:
+       def idfun(x): return x
+   seen = {}
+   result = []
+   for item in seq:
+       marker = idfun(item)
+       # in old Python versions:
+       # if seen.has_key(marker)
+       # but in new ones:
+       if marker in seen: continue
+       seen[marker] = 1
+       result.append(item)
+   return result
 
 #x and y values ranging from [-number_size_range, number_size_range]
 # number of coordinate pairs == number_pairs
 def createTestFile(file_name,number_size_range,number_pairs):
+    n = number_size_range
+    N = number_pairs
+    int1 = (random.randint(-1*n,1+n))
+    int2 = (random.randint(-1*n,1+n))
+    points = {(int1, int2) for i in xrange(N)}
+    while len(points) < N:
+        int1 = (random.randint(-1*n,1+n))
+        int2 = (random.randint(-1*n,1+n))
+        points |= {(int1, int2)}
+    final_list = list(list(x) for x in points)
+
     with open(file_name, 'w') as file:
-        for i in range ( number_pairs ):
-            int1 = random.randint(-1*number_size_range,1+number_size_range)
-            int2 = random.randint(-1*number_size_range,1+number_size_range)
-            file.write("{x} {y}\n".format(x=int1, y=int2))
+        for item in final_list:
+            file.write("{x} {y}\n".format(x=item[0], y=item[1]))
 
     return
