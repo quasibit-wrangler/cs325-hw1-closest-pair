@@ -35,6 +35,18 @@ def grabArray():
         numList[len(numList)-1][0]=int(numList[len(numList)-1][0])
         numList[len(numList)-1][1]=int(numList[len(numList)-1][1])
     return numList
+def grabArray(filename):
+    with open(filename) as f:
+        content = f.readlines()
+
+    numList = []
+    # tuples = content.split('\n')
+    for i in range(len(content)):
+        content[i].rstrip("\n")
+        numList.append(content[i].split())
+        numList[len(numList)-1][0]=int(numList[len(numList)-1][0])
+        numList[len(numList)-1][1]=int(numList[len(numList)-1][1])
+    return numList
 
 
 def dist_between_points(p1,p2):
