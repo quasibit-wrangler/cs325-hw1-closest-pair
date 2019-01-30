@@ -23,17 +23,6 @@ def min_distance(pair_set1, pair_set2):
         return pair_set2
 
 
-def grabArray():
-
-    numList = []
-    # tuples = content.split('\n')
-    for i in range(len(content)):
-        content[i].rstrip("\n")
-        numList.append(content[i].split())
-        numList[len(numList)-1][0]=int(numList[len(numList)-1][0])
-        numList[len(numList)-1][1]=int(numList[len(numList)-1][1])
-    return numList
-
 def grabArray(filename=None):
     if(filename == None):
         with open(sys.argv[1]) as f:

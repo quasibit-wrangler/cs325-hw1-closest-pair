@@ -1,7 +1,9 @@
 import helperLibrary as helperfoos
+import profiler as p
+import time
 
 
-
+@p.profile
 def naiveApproach(messyStuff):
     #sort by x for the first time
     messyStuff.sort(key=lambda point: point[0])
@@ -48,20 +50,3 @@ def split(Array):
         closest1 = helperfoos.min_distance(split(Array[:midPoint]),split(Array[midPoint:]))
         closest0 = scanEntireArray(Array,closest1)
         return closest0
-
-
-
-
-def main():
-    points = helperfoos.grabArray()
-    results=naiveApproach(points)
-    helperfoos.clean_duplicates(results)
-    helperfoos.printResults(results,helperfoos.dist_between_points(results[0][0],results[0][1]))
-
-
-
-
-
-
-
-main()

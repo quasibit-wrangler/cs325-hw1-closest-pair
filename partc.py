@@ -1,6 +1,8 @@
 import helperLibrary as helperfoos
 import copy as c
+import profiler as p
 
+@p.profile
 def advancedApproach(messyStuff):
     #sort by x for the first time
     messyStuff.sort(key=lambda point: point[0])
@@ -9,7 +11,6 @@ def advancedApproach(messyStuff):
     sortedYArray.sort(key=lambda point: point[1])
 
     results = split(sortByX, sortedYArray)
-
 
     return results
 
@@ -62,19 +63,3 @@ def turntoArray(tuples):
     for item in tuples:
         clean_array.append([ [item[0][0],item[0][1] ], [ item[1][0],item[1][1] ] ])
     return clean_array
-
-def main():
-    points = helperfoos.grabArray()
-    results=advancedApproach(points)
-    helperfoos.clean_duplicates(results)
-    results = turntoArray(results)
-    # print("Final Result", results)
-    helperfoos.printResults(results,helperfoos.dist_between_points(results[0][0],results[0][1]))
-
-
-
-
-
-
-
-main()

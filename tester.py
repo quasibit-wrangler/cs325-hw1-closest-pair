@@ -1,0 +1,51 @@
+import helperLibrary as h
+import parta as bruteForce
+import partb as naive
+import partc as best
+import sys
+
+import time
+import profiler as p
+
+
+
+
+def main():
+
+    worker = None
+
+    if(sys.argv[1] == "bruteforce"):
+        worker = bruteForce.bruteForce
+    elif(sys.argv[1] == "naive"):
+        worker = naive.naiveApproach
+    else:
+        worker = best.advancedApproach
+
+
+    if(sys.argv[2] == "1" or sys.argv[2] == "2" or sys.argv[2] == "3" or sys.argv[2] == "4"):
+        for i in range(10):
+            points = h.grabArray("./files/size{}/file{}.txt".format(sys.argv[2],i))
+            # points = h.grabArray()
+            start_time = time.time()
+
+            results = worker(points)
+
+            e = int(time.time() - start_time)
+
+            h.printResults(results,h.dist_between_points(results[0][0],results[0][1]))
+            print('{:02d}:{:02d}:{:02d}'.format(e // 3600, (e % 3600 // 60), e % 60))
+            print('\n')
+
+        p.print_prof_data()
+    else:
+        # the 2nd argument passed into the function
+        # will be the local filepath the TA specifies
+        points = h.grabArray(sys.argv[2])
+        results = worker(points)
+        h.printResults(results,h.dist_between_points(results[0][0],results[0][1]))
+
+
+
+
+
+main()
