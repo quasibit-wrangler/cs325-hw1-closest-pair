@@ -2,6 +2,27 @@ import sys
 import math
 import random
 
+
+#returns the new array of points from two different dist_between_points
+#inputs: 2 3 dimensional arrays, an array of pairs of pairs
+# [ [[ x1,y1 ] [x2,y2]] ]
+def min_distance(pair1, pair2):
+    if(pair1==None):
+        return pair2
+    elif(pair2==None):
+        return pair1
+    minDistance1 = dist_between_points(pair1[0][0], pair1[0][1])
+    minDistance2 = dist_between_points(pair2[0][0], pair2[0][1])
+    if(minDistance1<minDistance2):
+        return pair1
+    elif(minDistance1==minDistance2):
+        for item in pair2:
+            pair1.append(item)
+        return pair1
+    else:
+        return pair2
+
+
 def grabArray():
     with open(sys.argv[1]) as f:
         content = f.readlines()

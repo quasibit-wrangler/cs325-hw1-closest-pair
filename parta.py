@@ -1,27 +1,20 @@
-import helperLibrary as helperfoos
+import helperLibrary as h
+
 
 
 def bruteForce(messyStuff):
-    itemPair = []
-    itemPair.append([messyStuff[0],messyStuff[1]])
+    current_best = None
     for index,item in enumerate(messyStuff):
         for OtherItem in messyStuff[index+1:]:
-            if(helperfoos.dist_between_points(item,OtherItem)<
-                helperfoos.dist_between_points(itemPair[0][0],itemPair[0][1])):
-                itemPair=[]
-                itemPair.append([item,OtherItem])
-            elif(helperfoos.dist_between_points(item,OtherItem)==
-                helperfoos.dist_between_points(itemPair[0][0],itemPair[0][1])):
-                itemPair.append([item,OtherItem])
-
-    return itemPair
+            current_best = h.min_distance(current_best,[[item,OtherItem]])
+    return current_best
 
 
 
 def main():
-    points = helperfoos.grabArray()
+    points = h.grabArray()
     results = bruteForce(points)
-    helperfoos.printResults(results,helperfoos.dist_between_points(results[0][0],results[0][1]))
+    h.printResults(results,h.dist_between_points(results[0][0],results[0][1]))
 
 
 
