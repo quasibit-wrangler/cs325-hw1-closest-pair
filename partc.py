@@ -14,25 +14,21 @@ def advancedApproach(messyStuff):
 
     return results
 
-def findDelta(currentArray,currentBestDistance):
+def findDelta(sortedYArray,currentBestDistance,medianX):
     # if(len(currentArray)%2==0):
-    medianX = currentArray[len(currentArray)/2][0]
-    subArray={}
-    for i in range(len(currentArray)):
-        if(abs(currentArray[i][0]-medianX)<=currentBestDistance):
-            subArray["{x},{y}".format(x=currentArray[i][0], y=currentArray[i][1])] = True
+    subArray=[]
+    for i in range(len(sortedYArray)):
+        if(abs(sortedYArray[i][0]-medianX)<=currentBestDistance):
+            subArray.append(sortedYArray[i])
     return subArray
 
 
 #"{x},{y}".format(x=array[0],y=array[1])
 def scanEntireArray(array,currentBest,sortedYArray):
     currentLength=helperfoos.dist_between_points(currentBest[0][0],currentBest[0][1])
-    subArray = findDelta(array,currentLength)
-    sortedSubArray = []
-    for point in sortedYArray:
-        key = "{x},{y}".format(x=point[0], y=point[1])
-        if key in subArray:
-            sortedSubArray.append(point)
+    
+    medianX = array[len(array)/2][0]
+    sortedSubArray = findDelta(sortedYArray,currentLength,medianX)
     #brute force the check but discard y values that are crappy.
     for index in range(0,len(sortedSubArray)):
         for index2 in range(index+1,len(sortedSubArray)):
