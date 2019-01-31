@@ -32,7 +32,6 @@ def main():
 
             e = int(time.time() - start_time)
 
-            h.printResults(results,h.dist_between_points(results[0][0],results[0][1]))
             print('{:02d}:{:02d}:{:02d}'.format(e // 3600, (e % 3600 // 60), e % 60))
             print('\n')
 
@@ -42,7 +41,9 @@ def main():
         # will be the local filepath the TA specifies
         points = h.grabArray(sys.argv[2])
         results = worker(points)
-        h.printResults(results,h.dist_between_points(results[0][0],results[0][1]))
+
+    results = h.clean_duplicates_map(results)
+    h.printResults(results,h.dist_between_points(results[0][0],results[0][1]))
 
 
 

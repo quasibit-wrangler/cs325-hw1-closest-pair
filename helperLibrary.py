@@ -46,6 +46,23 @@ def dist_between_points(p1,p2):
     y=p2[1]-p1[1]
     return math.sqrt(x**2 + y**2)
 
+
+
+def clean_duplicates_map(array):
+    singular = {}
+    fresh = []
+    oneitem=[]
+    for i,pair1 in enumerate(array):
+        singular["{x},{y} {x2},{y2}".format(x=pair[0][1],y=pair[0][1],x2=pair[1][0],y2=pair[1][1])]=true
+
+    for key in singular:
+        twoitems = key.split()
+        oneitem = [ twoitems[0].split(','), [twoitems[1].split(',')] ]
+        fresh.append(oneitem)
+
+    return fresh
+
+
 def clean_duplicates(array):
     ## haha recusive function with no base case
     # i sure hope eventually we run out of duplicates!
