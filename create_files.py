@@ -13,6 +13,9 @@ if not os.path.exists("./files/size3"):
 if not os.path.exists("./files/size4"):
     os.makedirs("./files/size4")
 
+if not os.path.exists("./files/size5"):
+    os.makedirs("./files/size5")
+
 
 for i in range(10):
     h.createTestFile("./files/size1/file{}.txt".format(i),10000,100)
@@ -22,3 +25,5 @@ for i in range(10):
     h.createTestFile("./files/size3/file{}.txt".format(i),100000,10000)
 for i in range(10):
     h.createTestFile("./files/size4/file{}.txt".format(i),100000,100000)
+for i in range(10):
+    h.createTestFile("./files/size5/file{}.txt".format(i),100000,1000000)

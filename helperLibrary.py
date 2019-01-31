@@ -51,13 +51,17 @@ def dist_between_points(p1,p2):
 def clean_duplicates_map(array):
     singular = {}
     fresh = []
-    oneitem=[]
-    for i,pair1 in enumerate(array):
-        singular["{x},{y} {x2},{y2}".format(x=pair[0][1],y=pair[0][1],x2=pair[1][0],y2=pair[1][1])]=true
+    for i,pair in enumerate(array):
+        singular["{x},{y} {x2},{y2}".format(x=pair[0][1],y=pair[0][1],x2=pair[1][0],y2=pair[1][1])]=True
 
     for key in singular:
         twoitems = key.split()
-        oneitem = [ twoitems[0].split(','), [twoitems[1].split(',')] ]
+        oneitem = [ twoitems[0].split(','), twoitems[1].split(',') ]
+        p1x =int(oneitem[0][0])
+        p1y = int(oneitem[0][1])
+        p2x =int(oneitem[1][0])
+        p2y = int(oneitem[1][1])
+        oneitem= [ [p1x,p1y] , [p2x,p2y]  ]
         fresh.append(oneitem)
 
     return fresh
