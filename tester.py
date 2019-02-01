@@ -1,7 +1,7 @@
 import helperLibrary as h
 import parta as bruteForce
 import partb as naive
-import partc_2 as best
+import partc as best
 import sys
 
 import time
@@ -24,7 +24,7 @@ def main():
         raise Exception("Invalid algorythem selection")
 
     if(sys.argv[2] == "1" or sys.argv[2] == "2" or sys.argv[2] == "3" or sys.argv[2] == "4" or sys.argv[2] == "5"):
-        for i in range(10):
+        for i in range(1):
             points = h.grabArray("./files/size{}/file{}.txt".format(sys.argv[2],i))
             # points = h.grabArray()
             start_time = time.time()

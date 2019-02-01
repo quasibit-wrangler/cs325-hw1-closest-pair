@@ -27,7 +27,6 @@ def split(sortedXArray):
 
 
 def findDelta(sortedXArray,currentBestDistance,medianX):
-    # if(len(currentArray)%2==0):
     subArray=[]
     for i in range(len(sortedXArray)):
         if(abs(sortedXArray[i][0]-medianX)<=currentBestDistance):
