@@ -14,14 +14,14 @@ def main():
 
     worker = None
 
-    if(sys.argv[1] == "bruteforce"):
+    if(sys.argv[1] == "brute"):
         worker = bruteForce.bruteForce
     elif(sys.argv[1] == "naive"):
         worker = naive.naiveApproach
     elif(sys.argv[1] == "advanced"):
         worker = best.advancedApproach
     else:
-        raise Exception("Invalid algorythem selection")
+        raise Exception("Invalid algorythem selection, please select: brute | naive | advanced ")
 
     if(sys.argv[2] == "1" or sys.argv[2] == "2" or sys.argv[2] == "3" or sys.argv[2] == "4" or sys.argv[2] == "5"):
         for i in range(1):

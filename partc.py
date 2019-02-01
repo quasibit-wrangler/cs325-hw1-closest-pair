@@ -20,17 +20,12 @@ def advancedApproach(messyStuff):
 
 # if sign == 1, all items must be above x value
 # else the nit has to be below x value
-def filterSortedY(sortedYArray,xValue,sign):
-    filterd_sortedY = []
+def filterSortedY(sortedYArray,xValue,newArray):
     for item in sortedYArray:
-        if(sign == 1):
-            if(item[0] >= xValue):
-                filterd_sortedY.append(item)
+        if(item[0]<xValue):
+            newArray[0].append(item)
         else:
-            if(item[0] <= xValue):
-                filterd_sortedY.append(item)
-
-    return filterd_sortedY
+            newArray[1].append(item)
 
 def split(sortedXArray, sortedYArray):
     if(len(sortedXArray)==1):
@@ -40,11 +35,9 @@ def split(sortedXArray, sortedYArray):
     else:
         midPoint = len(sortedXArray)/2
         midxValue = sortedXArray[midPoint][0]
-
-        sortedYArray_l =  filterSortedY(sortedYArray,midxValue,0)
-        sortedYArray_r = filterSortedY(sortedYArray,midxValue,1)
-
-        closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint],sortedYArray_l),split(sortedXArray[midPoint:],sortedYArray_r))
+        l_and_r=[[],[]]
+        filterSortedY(sortedYArray,midxValue,l_and_r)
+        closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint],l_and_r[0]),split(sortedXArray[midPoint:],l_and_r[1]))
         closest0 = scanEntireArray(sortedXArray,closest1,sortedYArray)
     return closest0
 
