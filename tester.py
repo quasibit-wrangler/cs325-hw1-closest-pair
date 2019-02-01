@@ -24,7 +24,7 @@ def main():
         raise Exception("Invalid algorythem selection, please select: brute | naive | advanced ")
 
     if(sys.argv[2] == "1" or sys.argv[2] == "2" or sys.argv[2] == "3" or sys.argv[2] == "4" or sys.argv[2] == "5"):
-        for i in range(1):
+        for i in range(10):
             points = h.grabArray("./files/size{}/file{}.txt".format(sys.argv[2],i))
             # points = h.grabArray()
             start_time = time.time()
