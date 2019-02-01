@@ -23,7 +23,12 @@ def split(sortedXArray,sortedYArray):
         return [[sortedXArray[0], sortedXArray[1]]]
     else:
         midPoint = len(sortedXArray)/2
-        closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint],sortedYArray),split(sortedXArray[midPoint:],sortedYArray))
+        midxValue = sortedXArray[midPoint][0]
+        # try and shrink the array each time.
+        sortedYArray_l =  filterSortedY(sortedYArray,midxValue,0)
+        sortedYArray_r = filterSortedY(sortedYArray,midxValue,1)
+
+        closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint],sortedYArray_l),split(sortedXArray[midPoint:],sortedYArray_r))
         closest0 = scanEntireArray(sortedXArray,closest1,sortedYArray)
         return closest0
 
@@ -35,6 +40,22 @@ def findDelta(sortedXArray,currentBestDistance,medianX):
         if(abs(sortedXArray[i][0]-medianX)<=currentBestDistance):
             subArray.append(sortedXArray[i])
     return subArray
+
+
+# if sign == 1, all items must be above x value
+# else the nit has to be below x value
+def filterSortedY(sortedYArray,xValue,sign):
+    filterd_sortedY = []
+    for item in sortedYArray:
+        if(sign == 1):
+            if(item[0] >= xValue):
+                filterd_sortedY.append(item)
+        else:
+            if(item[0] <= xValue):
+                filterd_sortedY.append(item)
+
+    return filterd_sortedY
+
 
 def scanEntireArray(sortedXArray,currentBest,sortedYArray):
     currShortDistance = helperfoos.dist_between_points(currentBest[0][0],currentBest[0][1])

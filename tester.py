@@ -1,8 +1,7 @@
 import helperLibrary as h
 import parta as bruteForce
 import partb as naive
-import partc_2 as best1
-import partc as best
+import partc_2 as best
 import sys
 
 import time
