@@ -11,9 +11,10 @@ def profile(fn):
         elapsed_time = time.time() - start_time
 
         if fn.__name__ not in PROF_DATA:
-            PROF_DATA[fn.__name__] = [0, []]
+            PROF_DATA[fn.__name__] = [0, [], 0]
         PROF_DATA[fn.__name__][0] += 1
         PROF_DATA[fn.__name__][1].append(elapsed_time)
+        PROF_DATA[fn.__name__][2] += elapsed_time
 
         return ret
 
@@ -25,7 +26,8 @@ def print_prof_data():
         avg_time = sum(data[1]) / len(data[1])
         print "Function %s called %d times. " % (fname, data[0]),
         print 'Execution time max: %.3f, average: %.3f' % (max_time, avg_time)
-
+        print 'Total time elapsed: %.5f' %(data[2])
+        
 def clear_prof_data():
     global PROF_DATA
     PROF_DATA = {}

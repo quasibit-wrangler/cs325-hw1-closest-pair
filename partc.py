@@ -1,10 +1,13 @@
 import helperLibrary as helperfoos
 import copy as c
 import profiler as p
+import time
+
 
 @p.profile
 def advancedApproach(messyStuff):
     #sort by x for the first time
+
     messyStuff.sort(key=lambda point: point[0])
     sortByX = messyStuff
     sortedYArray = c.deepcopy(sortByX)
@@ -13,35 +16,6 @@ def advancedApproach(messyStuff):
     results = split(sortByX, sortedYArray)
 
     return results
-
-def findDelta(sortedYArray,currentBestDistance,medianX):
-    # if(len(currentArray)%2==0):
-    subArray=[]
-    for i in range(len(sortedYArray)):
-        if(abs(sortedYArray[i][0]-medianX)<=currentBestDistance):
-            subArray.append(sortedYArray[i])
-    return subArray
-
-
-#"{x},{y}".format(x=array[0],y=array[1])
-def scanEntireArray(array,currentBest,sortedYArray):
-    currentLength=helperfoos.dist_between_points(currentBest[0][0],currentBest[0][1])
-    
-    medianX = array[len(array)/2][0]
-    sortedSubArray = findDelta(sortedYArray,currentLength,medianX)
-    #brute force the check but discard y values that are crappy.
-    for index in range(0,len(sortedSubArray)):
-        for index2 in range(index+1,len(sortedSubArray)):
-            length_y=sortedSubArray[index2][1]-sortedSubArray[index][1]
-            if(length_y>currentLength):
-                #there is no way this index1 has a closest pair
-                break
-            else:
-                p2=[(sortedSubArray[index],sortedSubArray[index2])]
-                currentBest = helperfoos.min_distance(currentBest,p2)
-        pass
-    return currentBest
-
 
 def split(sortedXArray, sortedYArray):
     if(len(sortedXArray)==1):
@@ -53,6 +27,41 @@ def split(sortedXArray, sortedYArray):
         closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint], sortedYArray),split(sortedXArray[midPoint:], sortedYArray))
         closest0 = scanEntireArray(sortedXArray,closest1, sortedYArray)
         return closest0
+
+def findDelta(sortedYArray,currentBestDistance,medianX):
+    # if(len(currentArray)%2==0):
+    subArray=[]
+    for i in range(len(sortedYArray)):
+        if(abs(sortedYArray[i][0]-medianX)<=currentBestDistance):
+            subArray.append(sortedYArray[i])
+    return subArray
+
+
+#"{x},{y}".format(x=array[0],y=array[1])
+def scanEntireArray(sortedXArray,currentBest,sortedYArray):
+    currShortDistance=helperfoos.dist_between_points(currentBest[0][0],currentBest[0][1])
+    medianX = sortedXArray[len(sortedXArray)/2][0]
+
+    sorted_byY_SubArray = findDelta(sortedYArray,currShortDistance,medianX)
+    #brute force the check but discard y values that are crappy.
+    for index in range(0,len(sorted_byY_SubArray)):
+        for index2 in range(index+1,len(sorted_byY_SubArray)):
+            length_y=sorted_byY_SubArray[index2][1]-sorted_byY_SubArray[index][1]
+            if(length_y>currShortDistance):
+                #there is no way this index1 has a closest pair
+                break
+            else:
+                p2=[(sorted_byY_SubArray[index],sorted_byY_SubArray[index2])]
+                currentBest = helperfoos.min_distance(currentBest,p2)
+        pass
+    return currentBest
+
+
+
+
+
+
+
 
 def turntoArray(tuples):
     clean_array = []

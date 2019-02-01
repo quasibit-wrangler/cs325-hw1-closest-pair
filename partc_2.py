@@ -1,28 +1,30 @@
 import helperLibrary as helperfoos
+import copy as c
 import profiler as p
 import time
 
-
 @p.profile
-def naiveApproach(messyStuff):
+def advancedApproach(messyStuff):
     #sort by x for the first time
     messyStuff.sort(key=lambda point: point[0])
 
     sortByX = messyStuff
-    results = split(sortByX)
+    sortedYArray = sorted(c.deepcopy(sortByX),key=lambda point: point[1])
+
+    results = split(sortByX,sortedYArray)
 
     return results
 
 
-def split(sortedXArray):
+def split(sortedXArray,sortedYArray):
     if(len(sortedXArray)==1):
         return (None)
     elif(len(sortedXArray)==2):
         return [[sortedXArray[0], sortedXArray[1]]]
     else:
         midPoint = len(sortedXArray)/2
-        closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint]),split(sortedXArray[midPoint:]))
-        closest0 = scanEntireArray(sortedXArray,closest1)
+        closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint],sortedYArray),split(sortedXArray[midPoint:],sortedYArray))
+        closest0 = scanEntireArray(sortedXArray,closest1,sortedYArray)
         return closest0
 
 
@@ -34,23 +36,23 @@ def findDelta(sortedXArray,currentBestDistance,medianX):
             subArray.append(sortedXArray[i])
     return subArray
 
-def scanEntireArray(sortedXArray,currentBest):
+def scanEntireArray(sortedXArray,currentBest,sortedYArray):
     currShortDistance = helperfoos.dist_between_points(currentBest[0][0],currentBest[0][1])
     medianX = sortedXArray[len(sortedXArray)/2][0]
-    subArray = findDelta(sortedXArray,currShortDistance,medianX)
-    sortedYArray = sorted(subArray,key=lambda point: point[1]) #sort by the second element
+    sorted_y_subArray = findDelta(sortedYArray,currShortDistance,medianX)
+    # sortedYArray = sorted(subArray,key=lambda point: point[1]) #sort by the second element
 
     #brute force the check but discard y values that are crappy.
-    for index in range(0,len(sortedYArray)):
-        for index2 in range(index+1,len(sortedYArray)):
-            length_y=sortedYArray[index2][1]-sortedYArray[index][1]
+    for index in range(0,len(sorted_y_subArray)):
+        for index2 in range(index+1,len(sorted_y_subArray)):
+            length_y=sorted_y_subArray[index2][1]-sorted_y_subArray[index][1]
             if(length_y>currShortDistance):
                 #there is no way this index1 has a closest pair
                 break
             else:
                 #there is a posibility that these points are shorter distanceself
                 # than our current set of pairs
-                p2=[[sortedYArray[index],sortedYArray[index2]]]
+                p2=[[sorted_y_subArray[index],sorted_y_subArray[index2]]]
                 currentBest = helperfoos.min_distance(currentBest,p2)
         pass
     return currentBest

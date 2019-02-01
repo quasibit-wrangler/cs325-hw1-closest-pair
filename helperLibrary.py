@@ -1,6 +1,7 @@
 import sys
 import math
 import random
+import profiler as p
 
 
 #returns the new array of points from two different dist_between_points
@@ -40,7 +41,6 @@ def grabArray(filename=None):
         numList[len(numList)-1][1]=int(numList[len(numList)-1][1])
     return numList
 
-
 def dist_between_points(p1,p2):
     x=p2[0]-p1[0]
     y=p2[1]-p1[1]
@@ -52,7 +52,7 @@ def clean_duplicates_map(array):
     singular = {}
     fresh = []
     for i,pair in enumerate(array):
-        singular["{x},{y} {x2},{y2}".format(x=pair[0][1],y=pair[0][1],x2=pair[1][0],y2=pair[1][1])]=True
+        singular["{x},{y} {x2},{y2}".format(x=pair[0][0],y=pair[0][1],x2=pair[1][0],y2=pair[1][1])]=True
 
     for key in singular:
         twoitems = key.split()
@@ -65,21 +65,6 @@ def clean_duplicates_map(array):
         fresh.append(oneitem)
 
     return fresh
-
-
-def clean_duplicates(array):
-    ## haha recusive function with no base case
-    # i sure hope eventually we run out of duplicates!
-    for i,pair1 in enumerate(array):
-        for j in range(i+1,len(array)):
-            if(  pair1[0][0] == array[j][0][0] and
-                 pair1[0][1] == array[j][0][1] and
-                 pair1[1][0] == array[j][1][0] and
-                 pair1[1][1] == array[j][1][1] ):
-                 del array[i]
-                 array = clean_duplicates(array)
-                 return array
-    return array
 
 
 def printResults(array,distance):
