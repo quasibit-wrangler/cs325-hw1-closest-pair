@@ -23,7 +23,8 @@ def main():
     else:
         raise Exception("Invalid algorythem selection, please select: brute | naive | advanced ")
 
-    if(sys.argv[2] == "1" or sys.argv[2] == "2" or sys.argv[2] == "3" or sys.argv[2] == "4" or sys.argv[2] == "5"):
+    if(sys.argv[2] == "1" or sys.argv[2] == "2" or sys.argv[2] == "3" or sys.argv[2] == "4" or sys.argv[2] == "5" or
+     sys.argv[2] == "6" or sys.argv[2] == "7" or sys.argv[2] == "8"):
         for i in range(10):
             points = h.grabArray("./files/size{}/file{}.txt".format(sys.argv[2],i))
             # points = h.grabArray()
