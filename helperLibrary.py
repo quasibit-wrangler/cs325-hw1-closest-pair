@@ -97,19 +97,14 @@ def uniquifyList(seq, idfun=None):
 #x and y values ranging from [-number_size_range, number_size_range]
 # number of coordinate pairs == number_pairs
 def createTestFile(file_name,number_size_range,number_pairs):
-    n = number_size_range
-    N = number_pairs
-    int1 = (random.randint(-1*n,1+n))
-    int2 = (random.randint(-1*n,1+n))
-    points = {(int1, int2) for i in xrange(N)}
-    while len(points) < N:
-        int1 = (random.randint(-1*n,1+n))
-        int2 = (random.randint(-1*n,1+n))
-        points |= {(int1, int2)}
-    final_list = list(list(x) for x in points)
-
+    # n = number_size_range
+    # N = number_pairs
+    # int1 = (random.randint(-1*n,1+n))
+    # int2 = (random.randint(-1*n,1+n))
+    unique_list = random.sample(range(-1*number_size_range,number_size_range),number_pairs*2)
+    length=len(unique_list)/2
     with open(file_name, 'w') as file:
-        for item in final_list:
-            file.write("{x} {y}\n".format(x=item[0], y=item[1]))
+        for index in range(length):
+            file.write("{x} {y}\n".format(x=unique_list[index], y=unique_list[index+length]))
 
     return

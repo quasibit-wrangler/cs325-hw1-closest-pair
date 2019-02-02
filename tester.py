@@ -1,7 +1,6 @@
 import helperLibrary as h
 import parta as bruteForce
 import partb as naive
-import partc_2 as best1
 import partc as best
 import sys
 
@@ -15,16 +14,17 @@ def main():
 
     worker = None
 
-    if(sys.argv[1] == "bruteforce"):
+    if(sys.argv[1] == "brute"):
         worker = bruteForce.bruteForce
     elif(sys.argv[1] == "naive"):
         worker = naive.naiveApproach
     elif(sys.argv[1] == "advanced"):
         worker = best.advancedApproach
     else:
-        raise Exception("Invalid algorythem selection")
+        raise Exception("Invalid algorythem selection, please select: brute | naive | advanced ")
 
-    if(sys.argv[2] == "1" or sys.argv[2] == "2" or sys.argv[2] == "3" or sys.argv[2] == "4" or sys.argv[2] == "5"):
+    if(sys.argv[2] == "1" or sys.argv[2] == "2" or sys.argv[2] == "3" or sys.argv[2] == "4" or sys.argv[2] == "5" or
+     sys.argv[2] == "6" or sys.argv[2] == "7" or sys.argv[2] == "8"):
         for i in range(10):
             points = h.grabArray("./files/size{}/file{}.txt".format(sys.argv[2],i))
             # points = h.grabArray()

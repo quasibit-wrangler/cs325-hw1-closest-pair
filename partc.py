@@ -13,9 +13,19 @@ def advancedApproach(messyStuff):
     sortedYArray = c.deepcopy(sortByX)
     sortedYArray.sort(key=lambda point: point[1])
 
+
     results = split(sortByX, sortedYArray)
 
     return results
+
+# if sign == 1, all items must be above x value
+# else the nit has to be below x value
+def filterSortedY(sortedYArray,xValue,newArray):
+    for item in sortedYArray:
+        if(item[0]<xValue):
+            newArray[0].append(item)
+        else:
+            newArray[1].append(item)
 
 def split(sortedXArray, sortedYArray):
     if(len(sortedXArray)==1):
@@ -24,25 +34,29 @@ def split(sortedXArray, sortedYArray):
         return [(sortedXArray[0], sortedXArray[1])]
     else:
         midPoint = len(sortedXArray)/2
-        closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint], sortedYArray),split(sortedXArray[midPoint:], sortedYArray))
-        closest0 = scanEntireArray(sortedXArray,closest1, sortedYArray)
-        return closest0
+        midxValue = sortedXArray[midPoint][0]
+        l_and_r=[[],[]]
+        filterSortedY(sortedYArray,midxValue,l_and_r)
+        closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint],l_and_r[0]),split(sortedXArray[midPoint:],l_and_r[1]))
+        closest0 = scanEntireArray(sortedXArray,closest1,sortedYArray)
+    return closest0
 
-def findDelta(sortedYArray,currentBestDistance,medianX):
+def findDelta(sortedYArray,currentBestDistance,bounds):
     # if(len(currentArray)%2==0):
     subArray=[]
     for i in range(len(sortedYArray)):
-        if(abs(sortedYArray[i][0]-medianX)<=currentBestDistance):
+        if(sortedYArray[i][0]>=bounds[0] and sortedYArray[i][0]<=bounds[2] and abs(sortedYArray[i][0]-bounds[1])<=currentBestDistance):
             subArray.append(sortedYArray[i])
     return subArray
 
 
 #"{x},{y}".format(x=array[0],y=array[1])
+#bounds = [ sortx[0], medianX, sortx[-1]]
 def scanEntireArray(sortedXArray,currentBest,sortedYArray):
     currShortDistance=helperfoos.dist_between_points(currentBest[0][0],currentBest[0][1])
-    medianX = sortedXArray[len(sortedXArray)/2][0]
+    bounds=[ sortedXArray[0][0],[len(sortedXArray)/2][0],sortedXArray[-1][0]]
+    sorted_byY_SubArray = findDelta(sortedYArray,currShortDistance,bounds)
 
-    sorted_byY_SubArray = findDelta(sortedYArray,currShortDistance,medianX)
     #brute force the check but discard y values that are crappy.
     for index in range(0,len(sorted_byY_SubArray)):
         for index2 in range(index+1,len(sorted_byY_SubArray)):
