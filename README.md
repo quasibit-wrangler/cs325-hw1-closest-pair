@@ -11,7 +11,7 @@ which takes the arguments (file_path,number_size,number_of_items), so you can us
 
 # execution
 
-if you want to run the execution with on of our sample files, run ``` python create_files.py  ``` and then you will have the files.
+if you want to run the execution with our sample files and testing procedures, run ``` python create_files.py  ``` and then you will have the files.
 
 after that there are three different searching functions, and they are all contained within **tester.py** .
 
@@ -29,4 +29,11 @@ example:
 
 ```python tester.py naive smallfile.txt``` 
 <br />
-runs the naive algorythm with the file smallfile.txt in the current working directory.
+runs the naive algorythm once with the file smallfile.txt in the current working directory.
+<br />
+or
+<br />
+```python tester.py naive 2``` 
+<br />
+this runs the naive algorythm 10 times with all the sample files contained in ```./files/size2/```
+
