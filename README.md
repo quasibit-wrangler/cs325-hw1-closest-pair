@@ -18,9 +18,15 @@ after that there are three different searching functions, and they are all conta
 the generic way of invoking the program:
 
 ``` python tester.py <method> <file> ```
-where <method>: <br />
+where "method" can be one of three: <br />
   brute || naive || advanced <br />
 
-and file is: <br />
+and "file" is: <br />
  "1" - "8" if you want to use our sample files or <br />
  "relative-path.txt" if you want to use your own sample file.
+
+example:
+
+```python tester.py naive smallfile.txt``` 
+<br />
+runs the naive algorythm with the file smallfile.txt in the current working directory.
