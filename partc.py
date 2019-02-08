@@ -38,6 +38,7 @@ def split(sortedXArray, sortedYArray):
         l_and_r=[[],[]]
         filterSortedY(sortedYArray,midxValue,l_and_r)
         closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint],l_and_r[0]),split(sortedXArray[midPoint:],l_and_r[1]))
+        # closest1 = helperfoos.min_distance(split(sortedXArray[:midPoint],sortedYArray),split(sortedXArray[midPoint:],sortedYArray))
         closest0 = scanEntireArray(sortedXArray,closest1,sortedYArray)
     return closest0
 
@@ -45,7 +46,7 @@ def findDelta(sortedYArray,currentBestDistance,bounds):
     # if(len(currentArray)%2==0):
     subArray=[]
     for i in range(len(sortedYArray)):
-        if(sortedYArray[i][0]>=bounds[0] and sortedYArray[i][0]<=bounds[2] and abs(sortedYArray[i][0]-bounds[1])<=currentBestDistance):
+        if(abs(sortedYArray[i][0]-bounds[1])<=currentBestDistance):
             subArray.append(sortedYArray[i])
     return subArray
 
@@ -54,14 +55,13 @@ def findDelta(sortedYArray,currentBestDistance,bounds):
 #bounds = [ sortx[0], medianX, sortx[-1]]
 def scanEntireArray(sortedXArray,currentBest,sortedYArray):
     currShortDistance=helperfoos.dist_between_points(currentBest[0][0],currentBest[0][1])
-    bounds=[ sortedXArray[0][0],[len(sortedXArray)/2][0],sortedXArray[-1][0]]
+    bounds=[ sortedXArray[0][0],sortedXArray[len(sortedXArray)/2][0],sortedXArray[-1][0]]
     sorted_byY_SubArray = findDelta(sortedYArray,currShortDistance,bounds)
-
     #brute force the check but discard y values that are crappy.
     for index in range(0,len(sorted_byY_SubArray)):
         for index2 in range(index+1,len(sorted_byY_SubArray)):
             length_y=sorted_byY_SubArray[index2][1]-sorted_byY_SubArray[index][1]
-            if(length_y>currShortDistance):
+            if(length_y>currShortDistance):sortedXArray
                 #there is no way this index1 has a closest pair
                 break
             else:
