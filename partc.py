@@ -61,7 +61,7 @@ def scanEntireArray(sortedXArray,currentBest,sortedYArray):
     for index in range(0,len(sorted_byY_SubArray)):
         for index2 in range(index+1,len(sorted_byY_SubArray)):
             length_y=sorted_byY_SubArray[index2][1]-sorted_byY_SubArray[index][1]
-            if(length_y>currShortDistance):sortedXArray
+            if(length_y>currShortDistance):
                 #there is no way this index1 has a closest pair
                 break
             else:
